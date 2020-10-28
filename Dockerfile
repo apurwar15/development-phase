@@ -1,10 +1,10 @@
 
 # phase 1 Build stage
 
-from node:alpine as builder
+from node:alpine
 workdir '/app'
 
-copy package.json .
+copy package*.json ./
 run npm install
 
 copy . .
@@ -15,4 +15,4 @@ run npm run build
 
 from nginx
 EXPOSE 80
-COPY --from=builder /app/build /usr/share/nginx/html
+COPY --from=0 /app/build /usr/share/nginx/html
